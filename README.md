@@ -1,4 +1,4 @@
-# 📄 pdf2md — PDF & Image to Markdown Converter
+# 📄 MDConverter — PDF & Image to Markdown Converter
 > v2.0.0
 
 Convert PDFs and images into clean, token-efficient Markdown files — optimized for uploading to LLMs like Claude, ChatGPT, and Gemini.
@@ -166,7 +166,7 @@ Floyd-Warshall Algorithm
 ## 📁 Project Structure
 
 ```
-pdf2md/
+MDConverter/
 ├── convert_to_md.py   # Main conversion script
 ├── pdftomd.bat        # Windows global launcher (auto-generated)
 ├── output/            # Default output directory
