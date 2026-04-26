@@ -136,7 +136,24 @@ def convert(file_path: Path, output_dir: Path) -> None:
     print(f"✅ → {out.name} ({size_kb:.1f} KB)")
 
 
+def ensure_bat_file():
+    import os
+    script_dir = Path(__file__).parent
+    bat_path = script_dir / "convertmd.bat"
+    
+    if not bat_path.exists():
+        python_exe = script_dir / ".venv" / "Scripts" / "python.exe"
+        script_path = script_dir / "convert_to_md.py"
+        output_dir = script_dir / "output"
+        output_dir.mkdir(exist_ok=True)
+        
+        bat_content = f"@echo off\r\n{python_exe} {script_path} %* -o {output_dir}\r\n"
+        bat_path.write_bytes(bat_content.encode("ascii"))
+        print(f"✅ Created convertmd.bat at {bat_path}")
+
 def main():
+
+    ensure_bat_file()
     parser = argparse.ArgumentParser(
         description="Convert PDF/images to clean Markdown for LLM upload."
     )
