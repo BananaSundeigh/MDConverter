@@ -115,7 +115,44 @@ def image_to_md(img_path: Path) -> str:
         clean_text(text),
     ]
     return "\n".join(lines)
+    
+def image_to_md(img_path: Path) -> str:
+    try:
+        import pytesseract
+        from PIL import Image, ImageFilter, ImageEnhance
+        import numpy as np
+    except ImportError:
+        sys.exit("❌ pillow/pytesseract not installed.")
 
+    img = Image.open(str(img_path))
+
+    # 1. Convert to grayscale
+    img = img.convert("L")
+
+    # 2. Upscale 2x — most important fix for screenshots
+    w, h = img.size
+    img = img.resize((w * 2, h * 2), Image.LANCZOS)
+
+    # 3. Sharpen edges
+    img = img.filter(ImageFilter.SHARPEN)
+    img = img.filter(ImageFilter.SHARPEN)  # twice for dense text
+
+    # 4. Boost contrast
+    img = ImageEnhance.Contrast(img).enhance(2.0)
+
+    # 5. Binarize (black & white) using threshold
+    img = img.point(lambda x: 0 if x < 140 else 255, "1")
+
+    # 6. Use Tesseract with best accuracy config
+    custom_config = r"--oem 3 --psm 6"
+    text = pytesseract.image_to_string(img, config=custom_config)
+
+    lines = [
+        f"# {img_path.stem}",
+        f"*Source: {img_path.name}*\n",
+        clean_text(text),
+    ]
+    return "\n".join(lines)
 
 # ─── Main ────────────────────────────────────────────────────────────────────
 
