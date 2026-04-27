@@ -91,7 +91,7 @@ source .venv/bin/activate   # macOS/Linux
 
 **3. Install Python dependencies**
 ```bash
-pip install pymupdf pillow pytesseract
+pip install pymupdf pillow pytesseract numpy
 ```
 
 **4. Install Tesseract OCR engine**
