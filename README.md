@@ -122,8 +122,8 @@ python convert_to_md.py file1.pdf image.jpg file2.pdf
 python convert_to_md.py report.pdf -o ./output
 
 # Windows global command (auto-created on first run)
-pdftomd "C:\path\to\file.pdf"
-pdftomd "C:\path\to\scan.png"
+convertmd "C:\path\to\file.pdf"
+convertmd "C:\path\to\scan.png"
 ```
 
 ---
