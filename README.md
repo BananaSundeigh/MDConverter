@@ -188,7 +188,7 @@ MDConverter/
 ## 📝 Changelog
 
 ### v2.0.0
-- Auto-generates `pdftomd.bat` on first run if missing
+- Auto-generates `convertmd.bat` on first run if missing
 - Paths resolved relative to script location (no hardcoded usernames)
 - Output folder auto-created if it doesn't exist
 
